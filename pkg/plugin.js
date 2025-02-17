@@ -37,7 +37,7 @@
 
       this._set = function(v) {
         that.form = $(that.element).closest('form');
-        console.log(v, 'SUBMIT!');
+        //console.log(v, 'SUBMIT!');
         $(that.form).trigger('waxed-form-submit');
         //console.log(v);
       },
@@ -49,7 +49,7 @@
           }
         };
         
-        console.log(typeof(that.dd.max));
+        //console.log(typeof(that.dd.max));
         if (typeof(that.dd.min)!='undefined') {
           cfg.min = that.dd.min;
         };
