@@ -3,7 +3,7 @@
     "description": "UI controls ; dial (was 'knob'), XY pad, bars control - within WaxedPHP environment.",
     "type": "library",
     "license": "MIT",
-    "version": "0.2.6",
+    "version": "0.3.0",
     "autoload": {
         "psr-4": {
             "Waxedphp\\Kontrol\\": "src/"
@@ -15,6 +15,6 @@
         }
     ],
     "require": {
-      "waxedphp/waxedphp":"^0.2.6"
+      "waxedphp/waxedphp":"^0.3.0"
     }
 }
