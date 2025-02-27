@@ -27,7 +27,57 @@
       },
 
       this.setRecord = function(RECORD){
-        //$(that.element).val(27).trigger('change');
+        if (typeof that.dd.name == 'undefined') return;
+        var rec = that.pluggable.getvar(that.dd.name, RECORD);
+        if (typeof rec != 'object') { return; };
+        var changed = false;
+        if (typeof rec.config == 'object') {
+          var data = rec.config;
+          if (typeof data.color == 'string') {
+            this.cfg.fgColor = data.color;
+            $(this.element).data('fgcolor', data.color);
+            console.log(this.element, data.color);
+            changed = true;
+          }          
+        };
+        if (changed) {
+          //console.log(this.cfg);
+          //var a = $(this.element).xy(this.cfg);
+          if (this.mode == 'knob') {
+            $(that.element).knob(this.cfg);
+          }
+          if (this.mode == 'xy') {
+            $(that.element).xy(this.cfg);
+          }
+          if (this.mode == 'bars') {
+            $(that.element).bars(this.cfg);
+          }
+          $(that.element).trigger('change');
+          $(that.element).find('input').each(function(i,a){
+            $(a).trigger('change');
+          });
+        }
+        
+        if (typeof rec.value == 'number') {
+          if (this.mode == 'knob') {
+            $(that.element).val(rec.value).trigger('change');
+          }
+        }
+        if (typeof rec.value == 'object') {
+          if ((this.mode == 'xy')||(this.mode == 'bars')) {
+            var values = rec.value;
+            $(that.element).find('input').each(function(i,a){
+              if (typeof values[i] == 'number') {
+                $(a).val(values[i]);
+                $(a).trigger('change');
+              }
+            });
+            //$(that.element).trigger('change');
+          }
+
+        }
+
+        
       },
 
 
@@ -56,22 +106,27 @@
         if (typeof(that.dd.max)!='undefined') {
           cfg.max = that.dd.max;
         };
+        
+        //cfg.fgColor='lime';
+        this.cfg = cfg;
 
         if ($(this.element).hasClass('kontrol-knob')) {
           this.mode = 'knob';
-          $(this.element).knob(cfg);
+          $(this.element).knob(this.cfg);
 
         } else if ($(this.element).hasClass('kontrol-dial')) {
           this.mode = 'dial';
-          $(this.element).dial(cfg);
+          $(this.element).dial(this.cfg);
 
         } else if ($(this.element).hasClass('kontrol-xy')) {
           this.mode = 'xy';
-          $(this.element).xy(cfg);
+          var xy = $(this.element).xy(this.cfg);
+          console.log('XY',xy[0]);
+          $(xy[0]).addClass('kontrol-xy-pad');
 
         } else if ($(this.element).hasClass('kontrol-bars')) {
           this.mode = 'bars';
-          $(this.element).bars(cfg);
+          $(this.element).bars(this.cfg);
 
         } else {
 

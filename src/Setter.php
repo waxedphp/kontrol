@@ -1,7 +1,9 @@
 <?php
-namespace Waxedphp\Boilerplate;
+namespace Waxedphp\Kontrol;
 
 class Setter extends \Waxedphp\Waxedphp\Php\Setters\AbstractSetter {
+
+  protected ?string $color = null;
 
   /**
    * @var array<mixed> $setup
@@ -15,6 +17,7 @@ class Setter extends \Waxedphp\Waxedphp\Php\Setters\AbstractSetter {
    * @var array<mixed> $_allowedOptions
    */
   protected array $_allowedOptions = [
+  'color'
   ];
 
   function setValue($value) {
@@ -38,7 +41,7 @@ class Setter extends \Waxedphp\Waxedphp\Php\Setters\AbstractSetter {
   * @param mixed $value
   * @return array<mixed>
   */
-  public function value(mixed $value): array {
+  public function value(mixed $value = null): array {
     $a = [];
     $b = $this->getArrayOfAllowedOptions();
     if (!empty($b)) {
